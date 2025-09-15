@@ -1,0 +1,4 @@
+<!-- res/values/themes.xml -->
+<resources>
+    <style name="Theme.NIT3213Connect" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+</resources>

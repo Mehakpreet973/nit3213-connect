@@ -33,13 +33,13 @@ It implements three screens — **Login → Dashboard → Details** — and uses
     "username": "YourFirstName",
     "password": "YourStudentIDWithoutS"
   }
-# Successful Response
+### Successful Response
 {
 "keypass": "..."
 }
 #Dashboard Endpoint
 https://nit3213api.onrender.com/dashboard/animals
-# Successful Response
+### Successful Response
 {
 "entities": [
 {
@@ -54,7 +54,7 @@ https://nit3213api.onrender.com/dashboard/animals
 ],
 "entityTotal": 1
 }
-# Project Structure
+### Project Structure
 
 LoginActivity — handles login and navigation on success.
 DashboardActivity — shows a list of entities using RecyclerView.
@@ -64,14 +64,14 @@ Repository & API — NitRepository (impl) + Retrofit service & DTOs.
 Dependency Injection — Dagger Hilt modules for Retrofit/OkHttp/Repo/ViewModels.
 Unit Tests — ViewModel tests for success & error flows.
 
-#Technical Requirements
+## Technical Requirements
 Dependency Injection: Hilt for wiring Retrofit/OkHttp/Repository and ViewModels.
 RecyclerView: Dashboard list of entities.
 Unit Testing: JUnit tests for critical ViewModels (login, dashboard).
 Clean Code: MVVM + Repository, separation of concerns, simple mappers.
 Git: Clear, meaningful commit messages and a tidy history.
 
-#Installation and Steps
+## Installation and Steps
 Installation & Setup
 Clone the repository
 git clone https://github.com/Mehakpreet973/nit3213-connect.git

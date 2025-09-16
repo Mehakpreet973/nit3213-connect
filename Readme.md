@@ -20,6 +20,29 @@ It implements three screens — **Login → Dashboard → Details** — and uses
   MVVM, Repository pattern, Hilt (DI), Retrofit/OkHttp/Gson, Coroutines/StateFlow, ViewBinding, Material Design.
 
 ---
+## Prerequisites
+- Android Studio: Giraffe/Koala or newer
+- JDK: 17 (required by AGP 8.x)
+- Android SDK: API 34 installed
+- Device/Emulator: API 24+ with internet
+- 
+##  Android & Library Versions
+- compileSdk = 34
+- targetSdk  = 34
+- minSdk     = 24
+
+Libraries:
+- Kotlin Coroutines: 1.7.3
+- Lifecycle ViewModel/Runtime: 2.7.0
+- Retrofit: 2.9.0
+- OkHttp: 4.11.0 (+ logging-interceptor)
+- Gson Converter: 2.9.0
+- Material Components: 1.11.0
+- RecyclerView: 1.3.1
+- Activity KTX: 1.8.0
+- Hilt: 2.48 (hilt-android, hilt-compiler)
+- Testing: JUnit 4.13.2, kotlinx-coroutines-test 1.7.3
+
 
 ## API Details
 - **Base URL:** `https://nit3213api.onrender.com`
@@ -37,7 +60,11 @@ It implements three screens — **Login → Dashboard → Details** — and uses
 {
 "keypass": "..."
 }
-#Dashboard Endpoint
+
+### Dashboard Endpoint
+Path: /dashboard/{keypass}
+Method: GET
+Example (demo keypass):
 https://nit3213api.onrender.com/dashboard/animals
 ### Successful Response
 {
@@ -64,6 +91,27 @@ Repository & API — NitRepository (impl) + Retrofit service & DTOs.
 Dependency Injection — Dagger Hilt modules for Retrofit/OkHttp/Repo/ViewModels.
 Unit Tests — ViewModel tests for success & error flows.
 
+- OVERVIEW 
+app/
+  src/main/java/com/example/nit3213connect/
+    data/
+      remote/               # Retrofit API + DTOs
+      repo/                 # NitRepository interface + implementation
+    domain/
+      model/                # Entity (domain model) + mappers
+    di/                     # Hilt modules (Retrofit/OkHttp/Gson/Repository)
+    ui/
+      login/                # LoginActivity, LoginViewModel
+      dashboard/            # DashboardActivity, DashboardViewModel, EntitiesAdapter
+      details/              # DetailsActivity
+  src/main/res/             # layouts, drawables, themes, strings
+  src/test/                 # unit tests (ViewModels, etc.)
+
+## Flow 
+Login → calls /{campus}/auth → receives keypass
+Dashboard → calls /dashboard/{keypass} → lists entities (summary only: title + subtitle)
+Details → shows full description/attributes for the selected item
+
 ## Technical Requirements
 Dependency Injection: Hilt for wiring Retrofit/OkHttp/Repository and ViewModels.
 RecyclerView: Dashboard list of entities.
@@ -78,3 +126,13 @@ git clone https://github.com/Mehakpreet973/nit3213-connect.git
 
 Open in Android Studio (Giraffe/Koala or newer) and let Gradle sync.
 Run on an emulator/device (API 24+).
+
+## Troubleshooting
+- Material/TextInputLayout crash (“Theme.AppCompat required”)
+  Ensure app theme is a Material Components theme and Activities extend AppCompatActivity.
+
+- Empty dashboard / 404
+  Verify campus spelling and credential format (ID without ‘s’). Test the keypass via Postman (/dashboard/animals).
+
+- Emulator has no internet
+  Check connectivity (open a browser in the emulator), retry with OkHttp logging enabled.
